@@ -1,16 +1,21 @@
-apiVersion : apps/v1beta1
+apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: fastermiketest 
+  name: fastermiketest
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: fastermiketest
   template:
     metadata:
       labels:
-        app: fastermiketest 
+        app: fastermiketest
     spec:
       containers:
-        - name: fastermiketest 
+        - name: fastermiketest
           image: arcmiha.azurecr.io/fastermiketest
           ports:
           - containerPort: 80
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
